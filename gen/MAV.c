@@ -31,7 +31,7 @@ MAV_Port1_arm()
 r_t
 MAV_Port1_get_heading()
 {
-    return gnc_set_heading();
+    return gnc_get_heading();
 }
 
 /*

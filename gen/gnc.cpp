@@ -106,7 +106,7 @@ geometry_msgs::Point get_current_location()
 	return current_pos_local;
 
 }
-float gnc_get_current_heading()
+float gnc_get_heading()
 {
 	return current_heading_g;
 }
@@ -152,9 +152,9 @@ void gnc_set_heading(float heading)
 This function is used to command the drone to fly to a waypoint. These waypoints should be specified in the local reference frame. This is typically defined from the location the drone is launched. Psi is counter clockwise rotation following the drone’s reference frame defined by the x axis through the right side of the drone with the y axis through the front of the drone. 
 @returns n/a
 */
-void gnc_set_destination(float x, float y, float z, float psi)
+void gnc_set_destination(float x, float y, float z)
 {
-	set_heading(psi);
+	// set_heading(psi);
 	//transform map to local
 	float deg2rad = (M_PI/180);
 	float Xlocal = x*cos((correction_heading_g + local_offset_g - 90)*deg2rad) - y*sin((correction_heading_g + local_offset_g - 90)*deg2rad);
@@ -263,7 +263,8 @@ int initialize_local_frame()
 int gnc_arm()
 {
 	//intitialize first waypoint of mission
-	set_destination(0,0,0,0);
+	gnc_set_heading(0);
+	gnc_set_destination(0,0,0);
 	for(int i=0; i<100; i++)
 	{
 		local_pos_pub.publish(waypoint_g);
@@ -300,7 +301,7 @@ The takeoff function will arm the drone and put the drone in a hover above the i
 int gnc_takeoff(float takeoff_alt)
 {
 	//intitialize first waypoint of mission
-	set_destination(0,0,takeoff_alt,0);
+	gnc_set_destination(0,0,takeoff_alt);
 	for(int i=0; i<100; i++)
 	{
 		local_pos_pub.publish(waypoint_g);
