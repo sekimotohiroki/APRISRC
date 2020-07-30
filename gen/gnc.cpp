@@ -459,5 +459,7 @@ void gnc_init() {
 }
 
 void gnc_background (void) {
+	static ros::Duration duration = ros::Duration(0.01);
 	ros::spinOnce();
+	duration.sleep();
 }
