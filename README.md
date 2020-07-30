@@ -21,6 +21,8 @@ git clone https://github.com/hisazumi/gnc.git
 * Build on BridgePoint (Ctrl+B or Project menu -> Build all)
 
 4. Run in terminal
+
+* Before executing gnc, run simulator.sh, sitl.sh, and apm accroding to README.md of the container.
 ```
 rosrun gnc ctrl
 ```
