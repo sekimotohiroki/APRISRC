@@ -148,6 +148,20 @@ INSERT INTO C_IO
 	0,
 	'',
 	"c4c94ad5-cb8c-4b6d-94fd-23aafcb1bc52");
+INSERT INTO C_EP
+	VALUES ("e2e61698-b9dc-4911-95c7-79872095f0dd",
+	"78776ad7-dffd-4126-8217-a913ac6e4bc8",
+	-1,
+	'ready',
+	'');
+INSERT INTO C_IO
+	VALUES ("e2e61698-b9dc-4911-95c7-79872095f0dd",
+	"ba5eda7a-def5-0000-0000-000000000000",
+	'ready',
+	'',
+	1,
+	'',
+	"7576d5e0-2683-4a42-967a-ddb25a458620");
 INSERT INTO PE_PE
 	VALUES ("78776ad7-dffd-4126-8217-a913ac6e4bc8",
 	1,

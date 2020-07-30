@@ -88,3 +88,14 @@ MAV_Port1_takeoff( const r_t p_alt )
 {
     gnc_takeoff(p_alt);
 }
+
+/*
+ * Interface:  mavcontrol
+ * Provided Port:  Port1
+ * From Provider Message:  ready
+ */
+void
+MAV_Port1_ready()
+{
+  Control_Port1_ready();
+}

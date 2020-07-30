@@ -21,8 +21,8 @@ INSERT INTO GD_MD
 	1,
 	0,
 	0,
-	0,
-	0,
+	200,
+	150,
 	0,
 	'3.4.4',
 	'gnc::Interfaces');
@@ -32,7 +32,7 @@ INSERT INTO GD_GE
 	"78776ad7-dffd-4126-8217-a913ac6e4bc8",
 	96,
 	0,
-	'gnc::Interfaces::Interface');
+	'gnc::Interfaces::mavcontrol');
 INSERT INTO GD_SHP
 	VALUES ("2bb9d775-5de3-41cf-b15c-9e9ee75be927");
 INSERT INTO GD_NCS
