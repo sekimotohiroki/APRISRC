@@ -13,6 +13,7 @@ extern "C"{
     void gnc_set_heading(float heading);
     float gnc_get_heading();
     int gnc_check_waypoint_reached(float pos_tolerance, float heading_tolerance);
+    void gnc_background (void);
 
 #if defined(__cplusplus)
 }

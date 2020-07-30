@@ -457,3 +457,7 @@ void gnc_init() {
 	//create local reference frame 
 	initialize_local_frame();
 }
+
+void gnc_background (void) {
+	ros::spinOnce();
+}
