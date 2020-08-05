@@ -1,4 +1,5 @@
 #include "gnc.h"
+#include "MAV.h"
 
 /* imported from iq_gnc 
    https://github.com/Intelligent-Quads/iq_gnc */
@@ -34,6 +35,7 @@ nav_msgs::Odometry current_pose_g;
 geometry_msgs::Pose correction_vector_g;
 geometry_msgs::Point local_offset_pose_g;
 geometry_msgs::PoseStamped waypoint_g;
+bool is_waypoint_set = false;
 
 float current_heading_g;
 float local_offset_g;
@@ -170,8 +172,9 @@ void gnc_set_destination(float x, float y, float z)
 	waypoint_g.pose.position.y = y;
 	waypoint_g.pose.position.z = z;
 
+	is_waypoint_set = true;
+
 	local_pos_pub.publish(waypoint_g);
-	
 }
 /**
 \ingroup control_functions
@@ -348,6 +351,7 @@ This function returns an int of 1 or 0. THis function can be used to check when 
 */
 int gnc_check_waypoint_reached(float pos_tolerance=0.3, float heading_tolerance=0.01)
 {
+	static int count = 0;
 	local_pos_pub.publish(waypoint_g);
 	
 	//check for correct position 
@@ -355,18 +359,22 @@ int gnc_check_waypoint_reached(float pos_tolerance=0.3, float heading_tolerance=
     float deltaY = abs(waypoint_g.pose.position.y - current_pose_g.pose.pose.position.y);
     float deltaZ = 0; //abs(waypoint_g.pose.position.z - current_pose_g.pose.pose.position.z);
     float dMag = sqrt( pow(deltaX, 2) + pow(deltaY, 2) + pow(deltaZ, 2) );
-    ROS_INFO("dMag %f", dMag);
-    ROS_INFO("current pose x %F y %f z %f", (current_pose_g.pose.pose.position.x), (current_pose_g.pose.pose.position.y), (current_pose_g.pose.pose.position.z));
-    ROS_INFO("waypoint pose x %F y %f z %f", waypoint_g.pose.position.x, waypoint_g.pose.position.y,waypoint_g.pose.position.z);
+
     //check orientation
     float cosErr = cos(current_heading_g*(M_PI/180)) - cos(local_desired_heading_g*(M_PI/180));
     float sinErr = sin(current_heading_g*(M_PI/180)) - sin(local_desired_heading_g*(M_PI/180));
-    
     float headingErr = sqrt( pow(cosErr, 2) + pow(sinErr, 2) );
 
-    // ROS_INFO("current heading %f", current_heading_g);
-    // ROS_INFO("local_desired_heading_g %f", local_desired_heading_g);
-    // ROS_INFO("current heading error %f", headingErr);
+	count++;
+	if (count >= 10) {
+		ROS_INFO("dMag %f", dMag);
+		ROS_INFO("current pose x %F y %f z %f", (current_pose_g.pose.pose.position.x), (current_pose_g.pose.pose.position.y), (current_pose_g.pose.pose.position.z));
+		ROS_INFO("waypoint pose x %F y %f z %f", waypoint_g.pose.position.x, waypoint_g.pose.position.y,waypoint_g.pose.position.z);
+    	ROS_INFO("current heading %f", current_heading_g);
+     	ROS_INFO("local_desired_heading_g %f", local_desired_heading_g);
+     	ROS_INFO("current heading error %f", headingErr);
+		count = 0;
+	}
 
     if( dMag < pos_tolerance && headingErr < heading_tolerance)
 	{
@@ -451,6 +459,9 @@ void gnc_init() {
   	// wait for FCU connection
 	wait4connect();
 
+	//
+	set_mode("GUIDED");
+
 	//wait for used to switch to mode GUIDED
 	wait4start();
 
@@ -459,7 +470,13 @@ void gnc_init() {
 }
 
 void gnc_background (void) {
-	static ros::Duration duration = ros::Duration(0.01);
+	static ros::Duration duration = ros::Duration(0.5);
 	ros::spinOnce();
+	if (is_waypoint_set) {
+		if (gnc_check_waypoint_reached()) {
+			MAV_Port1_ready();
+			is_waypoint_set = false;
+		}
+	}
 	duration.sleep();
 }
