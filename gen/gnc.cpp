@@ -17,6 +17,7 @@
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/PositionTarget.h>
+#include <sensor_msgs/LaserScan.h>
 #include <unistd.h>
 #include <vector>
 #include <ros/duration.h>
@@ -47,6 +48,7 @@ float local_desired_heading_g;
 ros::Publisher local_pos_pub;
 ros::Subscriber currentPos;
 ros::Subscriber state_sub;
+ros::Subscriber collision_sub;
 ros::ServiceClient arming_client;
 ros::ServiceClient land_client;
 ros::ServiceClient set_mode_client;
@@ -402,6 +404,50 @@ int set_mode(std::string mode)
     }
 }
 
+void scan_cb(const sensor_msgs::LaserScan::ConstPtr& msg)
+{
+	// sensor_msgs::LaserScan current_2D_scan;
+  	// current_2D_scan = *msg;
+	// float avoidance_vector_x = 0; 
+	// float avoidance_vector_y = 0;
+	// bool avoid = false;
+	
+	// for(int i=1; i<current_2D_scan.ranges.size(); i++)
+	// {
+	// 	float d0 = 3; 
+	// 	float k = 0.5;
+
+	// 	if(current_2D_scan.ranges[i] < d0 && current_2D_scan.ranges[i] > .35)
+	// 	{
+	// 		avoid = true;
+	// 		float x = cos(current_2D_scan.angle_increment*i);
+	// 		float y = sin(current_2D_scan.angle_increment*i);
+	// 		float U = -.5*k*pow(((1/current_2D_scan.ranges[i]) - (1/d0)), 2);	
+
+	// 		avoidance_vector_x = avoidance_vector_x + x*U;
+	// 		avoidance_vector_y = avoidance_vector_y + y*U;
+
+	// 	}
+	// }
+	// float current_heading = get_current_heading();
+	// float deg2rad = (M_PI/180);
+	// avoidance_vector_x = avoidance_vector_x*cos((current_heading)*deg2rad) - avoidance_vector_y*sin((current_heading)*deg2rad);
+	// avoidance_vector_y = avoidance_vector_x*sin((current_heading)*deg2rad) + avoidance_vector_y*cos((current_heading)*deg2rad);
+
+	// if(avoid)
+	// {
+	// 	if( sqrt(pow(avoidance_vector_x,2) + pow(avoidance_vector_y,2)) > 3)
+	// 	{
+	// 		avoidance_vector_x = 3 * (avoidance_vector_x/sqrt(pow(avoidance_vector_x,2) + pow(avoidance_vector_y,2)));
+	// 		avoidance_vector_y = 3 * (avoidance_vector_y/sqrt(pow(avoidance_vector_x,2) + pow(avoidance_vector_y,2)));
+	// 	}
+	// 	geometry_msgs::Point current_pos;
+	// 	current_pos = get_current_location();
+	// 	set_destination(avoidance_vector_x + current_pos.x, avoidance_vector_y + current_pos.y, 2, 0);	
+	// }
+}
+
+
 /**
 \ingroup control_functions
 this function changes the mode of the drone to land
@@ -444,6 +490,7 @@ int init_publisher_subscriber(ros::NodeHandle controlnode)
 	land_client = controlnode.serviceClient<mavros_msgs::CommandTOL>((ros_namespace + "/mavros/cmd/land").c_str());
 	set_mode_client = controlnode.serviceClient<mavros_msgs::SetMode>((ros_namespace + "/mavros/set_mode").c_str());
 	takeoff_client = controlnode.serviceClient<mavros_msgs::CommandTOL>((ros_namespace + "/mavros/cmd/takeoff").c_str());
+	collision_sub = controlnode.subscribe<sensor_msgs::LaserScan>("/spur/laser/scan", 1, scan_cb);
 
 }
 
