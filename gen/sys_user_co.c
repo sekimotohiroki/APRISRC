@@ -110,6 +110,7 @@ UserPostShutdownCalloutf( void )
 {
   /* Insert implementation specific code here.  */
   SYS_USER_CO_PRINTF( "UserPostShutdownCallout\n" )
+  gnc_shutdown();
 }
 
 /*

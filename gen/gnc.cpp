@@ -22,7 +22,7 @@
 #include <ros/duration.h>
 #include <iostream>
 #include <string>
-
+#include <signal.h>
 
 /**
 \defgroup control_functions
@@ -447,12 +447,19 @@ int init_publisher_subscriber(ros::NodeHandle controlnode)
 
 }
 
+void gnc_sigint_handler(int sig) {
+	gnc_shutdown();
+}
+
 void gnc_init() {
 	//initialize ros 
     int argc = 0; // dummy for init
 	ros::init(argc, NULL, "gnc_node");
 	ros::NodeHandle gnc_node("~");
 	
+	// Ctrl-C
+	signal(SIGINT, gnc_sigint_handler);
+
 	//initialize control publisher/subscribers
 	init_publisher_subscriber(gnc_node);
 
@@ -479,4 +486,10 @@ void gnc_background (void) {
 		}
 	}
 	duration.sleep();
+}
+
+void gnc_shutdown(void) {
+	ros::shutdown();
+	extern bool Escher_run_flag;
+	Escher_run_flag = false;
 }
