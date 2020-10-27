@@ -137,7 +137,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/gnc_node.cpp)
 
-add_executable(ctrl src/gnc.cpp src/Control.c src/MAV.c src/sys_user_co.c src/Control_Controller_class.c src/gnc_sys_main.c src/sys_xtuml.c)
+file(GLOB MY_SOURCES src/*.c src/*.cpp)
+add_executable(ctrl ${MY_SOURCES})
 target_link_libraries(ctrl ${catkin_LIBRARIES})
 
 
