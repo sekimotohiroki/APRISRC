@@ -527,7 +527,7 @@ void gnc_background (void) {
 	static ros::Duration duration = ros::Duration(0.5);
 	ros::spinOnce();
 	if (is_waypoint_set) {
-		if (gnc_check_waypoint_reached()) {
+		if (gnc_check_waypoint_reached(1.0)) {
 			MAV_Port1_ready();
 			is_waypoint_set = false;
 		}
