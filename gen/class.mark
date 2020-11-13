@@ -68,7 +68,7 @@
 .// Example:
 .//   .invoke MarkObjectExtentSize( "myDomain", "MY_OBJ", 20 )
 .//============================================================================
-.//
+.invoke MarkObjectExtentSize( "*", "Waypoint", 20 );
 .//
 .//============================================================================
 .// MarkClassTraceOn( "component", "key_letters" )
