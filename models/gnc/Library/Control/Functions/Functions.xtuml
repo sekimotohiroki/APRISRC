@@ -41,34 +41,34 @@ INSERT INTO S_SYNC
 	'create object instance ctrl of Controller;
 //generate Controller1:''start'' to ctrl;
 create object instance wp1 of Waypoint;
-wp1.x = 71;
-wp1.y = 115;
-wp1.z = 1;
+wp1.x = 51;
+wp1.y = 35;
+wp1.z = 15;
 relate ctrl to wp1 across R1.''begin with'';
 relate ctrl to wp1 across R3.''is flying to'';
 
 create object instance wp2 of Waypoint;
-wp2.x = 151;
-wp2.y = 115;
-wp2.z = 1;
+wp2.x = 131;
+wp2.y = 35;
+wp2.z = 15;
 relate wp1 to wp2 across R2.''follows'';
 
 create object instance wp3 of Waypoint;
-wp3.x = 111;
-wp3.y = 95;
-wp3.z = 1;
+wp3.x = 91;
+wp3.y = 20;
+wp3.z = 15;
 
 relate wp2 to wp3 across R2.''follows'';
 
 create object instance wp4 of Waypoint;
-wp4.x = 71;
-wp4.y = 95;
-wp4.z = 1;
+wp4.x = 51;
+wp4.y = 20;
+wp4.z = 15;
 
 relate wp3 to wp4 across R2.''follows'';
 
 create object instance wp5 of Waypoint;
-wp5.x = 71;
+wp5.x = 51;
 wp5.y = 75;
 wp5.z = 1;
 

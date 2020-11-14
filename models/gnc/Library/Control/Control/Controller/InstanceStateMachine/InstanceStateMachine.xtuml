@@ -273,7 +273,7 @@ INSERT INTO SM_ACT
 	VALUES ("41431243-103a-4a6f-8403-1f52ffcb092f",
 	"c0c74364-95af-42df-a665-9e2fd1a7f507",
 	1,
-	'Port1::takeoff( alt:1);
+	'Port1::takeoff( alt:15);
 Port1::set_heading( heading:0 );',
 	'',
 	0);
