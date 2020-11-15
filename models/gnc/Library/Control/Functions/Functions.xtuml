@@ -41,80 +41,213 @@ INSERT INTO S_SYNC
 	'create object instance ctrl of Controller;
 //generate Controller1:''start'' to ctrl;
 create object instance wp1 of Waypoint;
-wp1.x = 51;
-wp1.y = 35;
-wp1.z = 20;
+wp1.x = 0;
+wp1.y = 28;
+wp1.z = 0.7;
 relate ctrl to wp1 across R1.''begin with'';
 relate ctrl to wp1 across R3.''is flying to'';
 
+//Port1::set_heading( heading:0 );
+
 create object instance wp2 of Waypoint;
-wp2.x = 131;
-wp2.y = 35;
-wp2.z = 20;
+wp2.x = -38.5;
+wp2.y = 27;
+wp2.z = 0.7;
 relate wp1 to wp2 across R2.''follows'';
 
-create object instance wp3 of Waypoint;
-wp3.x = 91;
-wp3.y = 20;
-wp3.z = 20;
+//Port1::set_heading( heading:0 );
+
+create object instance wp3 of Waypoint;//1 house
+wp3.x = -39;
+wp3.y = 50;
+wp3.z = 0.7;
 
 relate wp2 to wp3 across R2.''follows'';
 
-create object instance wp4 of Waypoint;
-wp4.x = 51;
-wp4.y = 20;
-wp4.z = 20;
+//Port1::set_heading( heading:0 );
+
+create object instance wp4 of Waypoint;//2 house
+wp4.x = -39.5;
+wp4.y = 90;
+wp4.z = 0.7;
 
 relate wp3 to wp4 across R2.''follows'';
 
-create object instance wp5 of Waypoint;
-wp5.x = 51;
-wp5.y = 75;
-wp5.z = 1;
+//Port1::set_heading( heading:0 );
+
+create object instance wp5 of Waypoint;//3 house
+wp5.x = -40;
+wp5.y = 130;
+wp5.z = 0.7;
 
 relate wp4 to wp5 across R2.''follows'';
 
-create object instance wp6 of Waypoint;
-wp6.x = 151;
-wp6.y = 75;
-wp6.z = 1;
+Port1::set_heading( heading:0 );
+
+create object instance wp6 of Waypoint;//Turning point
+wp6.x = -40.5;
+wp6.y = 145;
+wp6.z = 0.7;
 
 relate wp5 to wp6 across R2.''follows'';
 
-create object instance wp7 of Waypoint;
-wp7.x = 151;
-wp7.y = 55;
-wp7.z = 1;
+Port1::set_heading( heading:0 );
+
+create object instance wp7 of Waypoint;//Turning point
+wp7.x = -20.5;
+wp7.y = 145;
+wp7.z = 0.7;
 
 relate wp6 to wp7 across R2.''follows'';
 
-create object instance wp8 of Waypoint;
-wp8.x = 111;
-wp8.y = 55;
-wp8.z = 1;
+Port1::set_heading( heading:0 );
+
+create object instance wp8 of Waypoint;//4 house
+wp8.x = -20.5;
+wp8.y = 130;
+wp8.z = 0.7;
 
 relate wp7 to wp8 across R2.''follows'';
 
-create object instance wp9 of Waypoint;
-wp9.x = 71;
-wp9.y = 55;
-wp9.z = 1;
+create object instance wp9 of Waypoint;//5 house
+wp9.x = -20.5;
+wp9.y = 90;
+wp9.z = 0.7;
 
 relate wp8 to wp9 across R2.''follows'';
 
-create object instance wp10 of Waypoint;
-wp10.x = 0;
-wp10.y = 0;
-wp10.z = 1;
+
+
+//Port1::set_heading( heading:0 );
+
+create object instance wp10 of Waypoint;//6 house
+wp10.x = -20.5;
+wp10.y = 50;
+wp10.z = 0.7;
 
 relate wp9 to wp10 across R2.''follows'';
 
-create object instance wp11 of Waypoint;
-wp10.x = 0;
-wp10.y = 0;
-wp10.z = 0;
+Port1::set_heading( heading:0 );
+
+create object instance wp11 of Waypoint;//Turning point
+wp11.x = -20.5;
+wp11.y = 40;
+wp11.z = 0.7;
 
 relate wp10 to wp11 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp12 of Waypoint;//Turning point
+wp12.x = 0.5;
+wp12.y = 40;
+wp12.z = 0.7;
+
+relate wp11 to wp12 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp13 of Waypoint;//7 house
+wp13.x = 0.5;
+wp13.y = 50;
+wp13.z = 0.7;
+
+relate wp12 to wp13 across R2.''follows'';
+
+create object instance wp14 of Waypoint;//8 house
+wp14.x = 0.5;
+wp14.y = 90;
+wp14.z = 0.7;
+
+relate wp13 to wp14 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp15 of Waypoint;//9 house
+wp15.x = 0.5;
+wp15.y = 130;
+wp15.z = 0.7;
+
+relate wp14 to wp15 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp16 of Waypoint;//Turning point
+wp16.x = 0.5;
+wp16.y = 155;
+wp16.z = 0.7;
+
+relate wp15 to wp16 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp17 of Waypoint;//Turning point
+wp17.x = 24;
+wp17.y = 155;
+wp17.z = 0.7;
+
+relate wp16 to wp17 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp18 of Waypoint;//10 house
+wp18.x = 24;
+wp18.y = 130;
+wp18.z = 0.7;
+
+relate wp17 to wp18 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp19 of Waypoint;//11 house
+wp19.x = 24;
+wp19.y = 90;
+wp19.z = 0.7;
+
+relate wp18 to wp19 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp20 of Waypoint;//12 house
+wp20.x = 24;
+wp20.y = 50;
+wp20.z = 0.7;
+
+relate wp19 to wp20 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp21 of Waypoint;//Turning point
+wp21.x = 24;
+wp21.y = 28;
+wp21.z = 0.7;
+
+relate wp20 to wp21 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp22 of Waypoint;//Turning point
+wp22.x = 1;
+wp22.y = 28;
+wp22.z = 0.7;
+
+relate wp21 to wp22 across R2.''follows'';
+
+Port1::set_heading( heading:0 );
+
+create object instance wp23 of Waypoint;
+wp23.x = 0;
+wp23.y = 0;
+wp23.z = 0.7;
+
+relate wp22 to wp23 across R2.''follows'';
+
+create object instance wp24 of Waypoint;
+wp24.x = 0;
+wp24.y = 0;
+wp24.z = 0;
+
+relate wp23 to wp24 across R2.''follows'';
 
 
 
